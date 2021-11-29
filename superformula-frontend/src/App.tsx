@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import styles from './styles/themes.module.scss'
 
 function App(): ReactElement {
     return (
-        <div className="App">
+        <div className={styles.defaultTheme}>
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
