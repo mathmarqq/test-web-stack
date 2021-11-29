@@ -1,13 +1,15 @@
-.primaryButton {
-    padding: 0.3rem 1rem;
+.button {
+    width: 17rem;
+    height: 5rem;
+    font-size: 24px;
     border-radius: 8px;
-    background-color: var(--primary-main);
     border-color: var(--border-color);
 }
 
+.primaryButton {
+    background-color: var(--primary-main);
+}
+
 .secondaryButton {
-    padding: 0.3rem 1rem;
-    border-radius: 8px;
     background-color: var(--secondary-main);
-    border-color: var(--border-color);
 }

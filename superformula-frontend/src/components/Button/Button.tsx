@@ -8,7 +8,7 @@ function Button({ children, ...props }: ButtonProps): ReactElement {
     }
 
     return (
-        <button className={getStyle()} {...props}>
+        <button className={`${getStyle()} ${styles.button}`} {...props}>
             {children}
         </button>
     )
