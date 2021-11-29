@@ -1,0 +1,13 @@
+.textField {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+        font-weight: 600;
+        font-size: var(--typography-subtitle-1);
+    }
+
+    .input {
+        font-size: var(--typography-h5);
+    }
+}
