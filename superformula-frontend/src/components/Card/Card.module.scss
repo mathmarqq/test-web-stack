@@ -1,0 +1,8 @@
+.card {
+    border-radius: 0.5rem;
+    background-color: var(--primary-main);
+
+    &:hover {
+        box-shadow: var(--elevation-z1);
+    }
+}

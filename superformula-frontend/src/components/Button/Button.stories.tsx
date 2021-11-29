@@ -2,7 +2,6 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
-// Component
 import Button from './Button'
 import { ButtonProps } from './Button.types'
 import styles from '../../styles/themes.module.scss'

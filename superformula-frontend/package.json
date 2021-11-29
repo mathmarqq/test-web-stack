@@ -70,7 +70,8 @@
     "lint-staged": {
         "*.@(ts|tsx|js)": [
             "npm run lint",
-            "npm run format"
+            "npm run format",
+            "git add"
         ]
     },
     "eslintConfig": {
