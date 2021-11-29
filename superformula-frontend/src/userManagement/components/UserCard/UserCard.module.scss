@@ -7,6 +7,22 @@
     width: 320px;
     height: 272px;
 
+    .actionButtons {
+        width: 100%;
+        text-align: end;
+        opacity: 0;
+        transition: 0.2s;
+
+        .editIcon {
+            cursor: pointer;
+        }
+    }
+
+    &:hover .actionButtons {
+        transition: 0.2s;
+        opacity: 1;
+    }
+
     .avatar {
         height: 10rem;
         width: 10rem;
@@ -18,17 +34,29 @@
         width: 100%;
         justify-content: space-between;
 
-        .date {
-            color: #991313;
+        .title {
+            font-size: var(--typography-h6);
         }
+
+        .date {
+            color: var(--aux-color-1);
+        }
+    }
+
+    .dateInformation {
+        opacity: 0;
+        transition: 0.2s;
+    }
+
+    &:hover .dateInformation {
+        opacity: 1;
+        transition: 0.2s;
     }
 
     .description {
         font-weight: 300;
         font-size: 16px;
-        display: flex;
-        align-items: center;
-        color: #000000;
+        color: var(--primary-main-contrast);
         width: 100%;
     }
 }
