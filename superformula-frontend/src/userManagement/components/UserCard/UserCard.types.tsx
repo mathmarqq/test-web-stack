@@ -1,7 +1,8 @@
 import { User } from '../../models/User'
 
 type UserCardProps = {
-    imgUrl: string
-} & User
+    user: User
+    onEdit: () => void
+}
 
 export type { UserCardProps }

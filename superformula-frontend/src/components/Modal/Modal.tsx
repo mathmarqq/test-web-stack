@@ -1,11 +1,17 @@
 import React, { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
 import { ModalProps } from './Modal.types'
-import styles from '../../styles/themes.module.scss'
+import globalStyles from '../../styles/themes.module.scss'
+import styles from './Modal.module.scss'
 
-function Modal({ children, className, isShowing }: ModalProps): ReactElement | null {
+function Modal({
+    children,
+    backgroundClassName,
+    className,
+    isShowing,
+}: ModalProps): ReactElement | null {
     const getModalWrapper = () => (
-        <div className={styles.defaultTheme}>
+        <div className={`${globalStyles.defaultTheme} ${styles.background} ${backgroundClassName}`}>
             <div className={className}>{children}</div>
         </div>
     )

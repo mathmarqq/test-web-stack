@@ -1,12 +1,18 @@
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal {
     border-radius: 0.5rem;
-    max-width: 76rem;
-    max-height: 45rem;
     background-color: var(--secondary-main);
-    padding: 4rem 4rem 4rem 4rem;
+    padding: 4rem;
+    width: 70%;
 
     .title {
-        font-size: var(--typography-h3);
+        font-size: var(--typography-h4);
+        font-weight: normal;
         margin: 0;
     }
 

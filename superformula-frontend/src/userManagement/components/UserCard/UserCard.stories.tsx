@@ -22,9 +22,12 @@ const Template: Story<UserCardProps> = (args: UserCardProps) => <UserCard {...ar
 
 export const Main = Template.bind({})
 Main.args = {
-    name: 'Rex The Dog',
-    description: 'description',
-    imgUrl: 'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801',
-    createdAt: new Date(),
-    address: 'Adress',
+    user: {
+        id: 1,
+        name: 'Rex The Dog',
+        description: 'description',
+        imgUrl: 'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801',
+        createdAt: new Date(),
+        address: 'Adress',
+    },
 }

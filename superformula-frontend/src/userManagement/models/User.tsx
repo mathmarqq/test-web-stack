@@ -4,6 +4,7 @@ type User = {
     address: string
     description: string
     createdAt: Date
+    imgUrl?: string
 }
 
 export type { User }

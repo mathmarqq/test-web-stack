@@ -6,7 +6,6 @@ import {
     FindUsersVars,
 } from '../../infra/graphql/queries'
 import UserCard from '../../userManagement/components/UserCard/UserCard'
-import { UserCardProps } from '../../userManagement/components/UserCard/UserCard.types'
 import Input from '../../components/Input/Input'
 import styles from './UserManagement.module.scss'
 import Button from '../../components/Button/Button'
@@ -88,14 +87,21 @@ function UserManagement(): ReactElement {
         return loading && networkStatus === NetworkStatus.fetchMore
     }
 
+    function handleUpdateUser() {
+        refetch()
+    }
+
     function renderContent() {
         return isFetching() ? (
             <Loader />
         ) : (
-            data?.findUsers.items.map((user) => {
-                const userCardProps: UserCardProps = { ...user, imgUrl: image }
-                return <UserCard key={user.id} {...userCardProps} />
-            })
+            data?.findUsers.items.map((user) => (
+                <UserCard
+                    key={user.id}
+                    user={{ ...user, imgUrl: image }}
+                    onEdit={() => handleUpdateUser()}
+                />
+            ))
         )
     }
 
