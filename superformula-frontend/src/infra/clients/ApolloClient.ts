@@ -15,7 +15,7 @@ const graphqlClient = new ApolloClient({
         typePolicies: {
             Query: {
                 fields: {
-                    findUsers: { keyArgs: ['filter'], merge: mergeListUsersQuery },
+                    findUsers: { keyArgs: false, merge: mergeListUsersQuery },
                 },
             },
         },

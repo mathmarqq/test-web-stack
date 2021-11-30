@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { useLazyQuery } from '@apollo/client'
+import { NetworkStatus, useQuery } from '@apollo/client'
 import {
     findUsers as findUsersQuery,
     FindUsersResponse,
@@ -11,6 +11,7 @@ import Input from '../../components/Input/Input'
 import styles from './UserManagement.module.scss'
 import Button from '../../components/Button/Button'
 import useQueryParams, { QueryParam } from '../../hooks/useQueryParams'
+import Loader from '../../components/Loader/Loader'
 
 const image =
     'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801'
@@ -22,92 +23,80 @@ function getQueryPage(searchParams: URLSearchParams | undefined) {
     return { queryPage: parseInt(searchParams?.get('page') || `${INITIAL_PAGE}`, 10) }
 }
 
-type UserManagementFilters = FindUsersVars & { loadMore: boolean }
-
 function UserManagement(): ReactElement {
     const { changeQueryParams, getQueryParams } = useQueryParams()
     const { queryPage } = getQueryPage(getQueryParams())
 
-    const [filters, setFilters] = useState<UserManagementFilters>({
-        limit: PAGE_LIMIT + PAGE_LIMIT * queryPage,
-        loadMore: false,
-    })
+    const [search, setSearch] = useState('')
+    const [debouncedSearch, setDebouncedSearch] = useState('')
 
-    const [searchInput, setSearchInput] = useState('')
+    const [nextPage, setNextPage] = useState(INITIAL_PAGE)
 
-    const [executeSearch, { loading, data, fetchMore }] = useLazyQuery<
+    const { loading, data, networkStatus, fetchMore, refetch } = useQuery<
         FindUsersResponse,
         FindUsersVars
-    >(findUsersQuery)
+    >(findUsersQuery, {
+        variables: {
+            search: debouncedSearch,
+            limit: PAGE_LIMIT + PAGE_LIMIT * queryPage,
+        },
+        notifyOnNetworkStatusChange: true,
+    })
 
-    function fetchUsers() {
-        const { search, page, limit, loadMore } = filters
+    useEffect(() => {
+        setTimeout(() => {
+            setDebouncedSearch(search)
+        }, 1000)
+    }, [search])
 
-        if (!loadMore) {
-            executeSearch({
-                variables: {
-                    search,
-                    page,
-                    limit,
-                },
-            })
-        }
-    }
+    useEffect(() => {
+        refetch({
+            search: debouncedSearch,
+        })
+    }, [debouncedSearch, refetch])
 
-    useEffect(fetchUsers, [executeSearch, filters])
-
-    function fetchNexPage() {
-        const { search, page, limit, loadMore } = filters
-
-        if (loadMore) {
+    useEffect(() => {
+        if (nextPage !== INITIAL_PAGE) {
             fetchMore({
                 variables: {
-                    search,
-                    page,
-                    limit,
+                    page: nextPage,
+                    limit: PAGE_LIMIT,
                 },
             })
         }
-    }
-
-    useEffect(fetchNexPage, [fetchMore, filters])
+    }, [nextPage, fetchMore])
 
     function searchUsers(event: React.ChangeEvent<HTMLInputElement>) {
-        setSearchInput(event.target.value)
-
-        setTimeout(() => {
-            setFilters({
-                ...filters,
-                search: event.target.value,
-                page: INITIAL_PAGE,
-                limit: PAGE_LIMIT,
-                loadMore: false,
-            })
-        }, 500)
-
-        changeQueryParams('/user-management')
+        setSearch(event.target.value)
+        changeQueryParams('/user-management', [])
+        setNextPage(INITIAL_PAGE)
     }
 
-    function fetchMoreUsers() {
-        const nextPage = (filters?.page || 0) + 1
-
-        setFilters({ ...filters, page: nextPage, limit: PAGE_LIMIT, loadMore: true })
-
-        const nextQueryParams: QueryParam[] = [
-            {
-                key: 'page',
-                value: `${nextPage}`,
-            },
-        ]
+    async function fetchMoreUsers() {
+        const nextPageNumber = queryPage + 1
+        const nextQueryParams: QueryParam[] = [{ key: 'page', value: `${nextPageNumber}` }]
 
         changeQueryParams('/user-management', nextQueryParams)
+        setNextPage(nextPageNumber)
     }
 
-    function renderCards() {
-        return data?.findUsers.items.map((user) => {
-            const userCardProps: UserCardProps = { ...user, imgUrl: image }
-            return <UserCard key={user.id} {...userCardProps} />
-        })
+    function isFetching() {
+        return loading && networkStatus !== NetworkStatus.fetchMore
+    }
+
+    function isFetchingMore() {
+        return loading && networkStatus === NetworkStatus.fetchMore
+    }
+
+    function renderContent() {
+        return isFetching() ? (
+            <Loader />
+        ) : (
+            data?.findUsers.items.map((user) => {
+                const userCardProps: UserCardProps = { ...user, imgUrl: image }
+                return <UserCard key={user.id} {...userCardProps} />
+            })
+        )
     }
 
     return (
@@ -115,19 +104,30 @@ function UserManagement(): ReactElement {
             <div className={styles.header}>
                 <h1>Users list</h1>
                 <Input
-                    value={searchInput}
+                    value={search}
                     onChange={(event) => searchUsers(event)}
                     placeholder="Search..."
+                    disabled={loading}
                 />
             </div>
-            <div className={styles.cardsWrapper}>{loading ? 'loading' : renderCards()}</div>
-            <Button
-                className={styles.loadButton}
-                variant="primary"
-                onClick={() => fetchMoreUsers()}
-            >
-                Load More
-            </Button>
+            <div className={isFetching() ? styles.loadingWrapper : styles.cardsWrapper}>
+                {renderContent()}
+            </div>
+            <div className={styles.loadMoreWrapper}>
+                {isFetchingMore() ? (
+                    <Loader />
+                ) : (
+                    <Button
+                        variant="primary"
+                        onClick={() => fetchMoreUsers()}
+                        disabled={
+                            loading || data?.findUsers.items.length === data?.findUsers.totalItems
+                        }
+                    >
+                        Load More
+                    </Button>
+                )}
+            </div>
         </div>
     )
 }

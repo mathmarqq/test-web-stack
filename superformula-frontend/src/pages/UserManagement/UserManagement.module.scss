@@ -1,10 +1,16 @@
 .page {
-    background: #f8f8f8;
-    padding: 5rem;
+    background: var(--secondary-main);
     height: 100vh;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 
     .header {
+        background: var(--secondary-main);
+        padding: 2rem;
+        position: sticky;
+        top: 0;
         display: flex;
         justify-content: space-between;
         height: 3rem;
@@ -12,15 +18,28 @@
     }
 
     .cardsWrapper {
+        flex: 1;
         display: grid;
         justify-content: space-around;
         grid-template-columns: repeat(auto-fill, 25rem);
         gap: 4rem;
         padding: 1rem 0;
+        box-sizing: border-box;
     }
 
-    .loadButton {
-        margin: auto;
-        display: block;
+    .loadingWrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+        box-sizing: border-box;
+    }
+
+    .loadMoreWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 2rem;
     }
 }
