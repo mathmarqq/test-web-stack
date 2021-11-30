@@ -7,7 +7,7 @@ import { formatDate } from '../../../utils/dateHelper'
 import PenIcon from '../../../components/Icons/PenIcon'
 
 function UserCard(user: UserCardProps): ReactElement {
-    const { name, imgUrl, description, creationDate } = user
+    const { name, imgUrl, description, createdAt } = user
 
     return (
         <Card className={styles.card}>
@@ -18,7 +18,7 @@ function UserCard(user: UserCardProps): ReactElement {
             <div className={styles.titleSection}>
                 <h2 className={styles.title}>{name.toUpperCase()}</h2>
                 <span className={styles.dateInformation}>
-                    created <span className={styles.date}>{formatDate(creationDate)}</span>
+                    created <span className={styles.date}>{formatDate(createdAt)}</span>
                 </span>
             </div>
             <p className={styles.description}>{description}</p>

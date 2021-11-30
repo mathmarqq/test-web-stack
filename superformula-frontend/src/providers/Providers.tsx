@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import ApolloProvider from './ApolloProvider'
 
 type ProvidersProps = {
-    children: string
+    children: ReactNode
 }
 
 function Providers({ children }: ProvidersProps): ReactElement {

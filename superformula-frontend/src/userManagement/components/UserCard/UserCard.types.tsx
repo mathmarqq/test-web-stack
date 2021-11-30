@@ -1,8 +1,7 @@
+import { User } from '../../models/User'
+
 type UserCardProps = {
-    name: string
-    description: string
     imgUrl: string
-    creationDate: Date
-}
+} & User
 
 export type { UserCardProps }

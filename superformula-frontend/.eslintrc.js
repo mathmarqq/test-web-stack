@@ -24,7 +24,7 @@ module.exports = {
             typescript: {},
         },
     },
-    plugins: ['react', '@typescript-eslint', 'react-hooks'],
+    plugins: ['react-hooks', 'react', '@typescript-eslint'],
     rules: {
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],
@@ -52,5 +52,7 @@ module.exports = {
             'error',
             { devDependencies: ['**/*.test.ts', '**/*.test.tsx', '**/*.stories.tsx'] },
         ],
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
     },
 }

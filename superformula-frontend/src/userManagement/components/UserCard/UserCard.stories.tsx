@@ -25,5 +25,6 @@ Main.args = {
     name: 'Rex The Dog',
     description: 'description',
     imgUrl: 'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801',
-    creationDate: new Date(),
+    createdAt: new Date(),
+    address: 'Adress',
 }

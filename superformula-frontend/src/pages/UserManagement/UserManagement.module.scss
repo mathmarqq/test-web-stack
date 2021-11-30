@@ -1,0 +1,26 @@
+.page {
+    background: #f8f8f8;
+    padding: 5rem;
+    height: 100vh;
+    box-sizing: border-box;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        height: 3rem;
+        align-items: center;
+    }
+
+    .cardsWrapper {
+        display: grid;
+        justify-content: space-around;
+        grid-template-columns: repeat(auto-fill, 25rem);
+        gap: 4rem;
+        padding: 1rem 0;
+    }
+
+    .loadButton {
+        margin: auto;
+        display: block;
+    }
+}
