@@ -5,10 +5,12 @@ import { UserCardProps } from './UserCard.types'
 
 test('When User Card renders should show user avatar', () => {
     const user: UserCardProps = {
+        id: 1,
         name: 'Fake Name',
         description: 'description',
         imgUrl: 'fake_url',
-        creationDate: new Date(),
+        createdAt: new Date(),
+        address: 'address',
     }
 
     render(<UserCard {...user} />)
@@ -20,10 +22,12 @@ test('When User Card renders should show user avatar', () => {
 
 test('When User Card renders should show user name in uppercase', () => {
     const user: UserCardProps = {
+        id: 1,
         name: 'Fake Name',
         description: 'description',
         imgUrl: 'fake_url',
-        creationDate: new Date(),
+        createdAt: new Date(),
+        address: 'address',
     }
 
     render(<UserCard {...user} />)
@@ -33,10 +37,12 @@ test('When User Card renders should show user name in uppercase', () => {
 
 test('When User Card renders should show user description', () => {
     const user: UserCardProps = {
+        id: 1,
         name: 'Fake Name',
         description: 'description',
         imgUrl: 'fake_url',
-        creationDate: new Date(),
+        createdAt: new Date(),
+        address: 'address',
     }
 
     render(<UserCard {...user} />)
@@ -46,10 +52,12 @@ test('When User Card renders should show user description', () => {
 
 test('When User Card is hovered should show user creation date', () => {
     const user: UserCardProps = {
+        id: 1,
         name: 'Fake Name',
         description: 'description',
         imgUrl: 'fake_url',
-        creationDate: new Date('Sun Nov 28 2021 23:47:40 GMT-0300'),
+        createdAt: new Date('Sun Nov 28 2021 23:47:40 GMT-0300'),
+        address: 'address',
     }
 
     render(<UserCard {...user} />)
