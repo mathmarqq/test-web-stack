@@ -25,7 +25,7 @@ function Map({ center, className }: MapProps): ReactElement {
                 zoom: defaultZoom,
             })
 
-            new mapboxgl.Marker({ color: '#dc2626' }).setLngLat(center).addTo(map.current)
+            new mapboxgl.Marker().setLngLat(center).addTo(map.current)
         }
 
         return () => map.current?.remove()
@@ -34,7 +34,7 @@ function Map({ center, className }: MapProps): ReactElement {
     useEffect(() => {
         if (map.current) {
             map.current?.setCenter(center)
-            new mapboxgl.Marker({ color: '#dc2626' }).setLngLat(center).addTo(map.current)
+            new mapboxgl.Marker().setLngLat(center).addTo(map.current)
         }
     }, [center])
 
