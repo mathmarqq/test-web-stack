@@ -1,17 +1,46 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useState } from 'react'
+import { useMutation } from '@apollo/client'
 import { EditModalProps } from './EditModal.types'
 import Modal from '../../../components/Modal/Modal'
 import TextField from '../../../components/TextField/TextField'
 import Button from '../../../components/Button/Button'
 import styles from './EditModal.module.scss'
+import { updateUser } from '../../../infra/graphql/mutations'
 
-function EditModal({ user, isShowing, onSave }: EditModalProps): ReactElement {
-    const [name, setName] = useState(user.name)
-    const [adress, setAdress] = useState(user.address)
-    const [description, setDescription] = useState(user.description)
+type FormData = {
+    name: string
+    address: string
+    description: string
+}
 
-    function handleUpdateuser() {
-        onSave()
+function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactElement {
+    const [formData, setFormData] = useState<FormData>({
+        name: user.name,
+        address: user.address,
+        description: user.description,
+    })
+
+    const [updateUserAsync, { data }] = useMutation(updateUser)
+
+    useEffect(() => {
+        if (data) {
+            onSave()
+        }
+    }, [data, onSave])
+
+    function handleUpdateuser(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        updateUserAsync({
+            variables: { id: user.id, ...formData },
+        })
+    }
+
+    function handleChange(key: string, e: ChangeEvent<HTMLInputElement>) {
+        setFormData({
+            ...formData,
+            [key]: e.target.value,
+        })
     }
 
     return (
@@ -26,32 +55,32 @@ function EditModal({ user, isShowing, onSave }: EditModalProps): ReactElement {
                     src="http://recipes-food.club/wp-content/uploads/2019/01/capture.png"
                     alt="map"
                 />
-                <div className={styles.inputs}>
+                <form id="edit-user-form" className={styles.inputs} onSubmit={handleUpdateuser}>
                     <TextField
                         label="Name"
                         inputId="nameInput"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        value={formData.name}
+                        onChange={(event) => handleChange('name', event)}
                     />
                     <TextField
                         label="Location"
                         inputId="locationInput"
-                        value={adress}
-                        onChange={(event) => setAdress(event.target.value)}
+                        value={formData.address}
+                        onChange={(event) => handleChange('address', event)}
                     />
                     <TextField
                         label="Description"
                         inputId="descriptionInput"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
+                        value={formData.description}
+                        onChange={(event) => handleChange('description', event)}
                     />
-                </div>
+                </form>
             </div>
             <div className={styles.actionButtons}>
-                <Button variant="primary" type="button" onClick={() => handleUpdateuser()}>
+                <Button variant="primary" type="submit" form="edit-user-form">
                     Save
                 </Button>
-                <Button variant="secondary" type="button">
+                <Button variant="secondary" type="button" onClick={() => onClose()}>
                     Cancel
                 </Button>
             </div>

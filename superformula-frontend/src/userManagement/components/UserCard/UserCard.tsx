@@ -11,10 +11,6 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
     const { name, imgUrl, description, createdAt } = user
     const [isShowingModal, setIsShowingModal] = useState(false)
 
-    function showModal() {
-        setIsShowingModal(true)
-    }
-
     function onSave() {
         setIsShowingModal(false)
         onEdit()
@@ -24,7 +20,7 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
         <>
             <Card className={styles.card}>
                 <div className={styles.actionButtons}>
-                    <PenIcon className={styles.editIcon} onClick={() => showModal()} />
+                    <PenIcon className={styles.editIcon} onClick={() => setIsShowingModal(true)} />
                 </div>
                 <Avatar imgUrl={imgUrl || ''} imgAlt={name} className={styles.avatar} />
                 <div className={styles.titleSection}>
@@ -35,7 +31,12 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
                 </div>
                 <p className={styles.description}>{description}</p>
             </Card>
-            <EditModal user={user} isShowing={isShowingModal} onSave={() => onSave()} />
+            <EditModal
+                user={user}
+                isShowing={isShowingModal}
+                onSave={() => onSave()}
+                onClose={() => setIsShowingModal(false)}
+            />
         </>
     )
 }

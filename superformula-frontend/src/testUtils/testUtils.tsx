@@ -1,8 +1,9 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
+import { MockedProvider } from '@apollo/client/testing'
 
 const AllTheProviders: FC = ({ children }) => {
-    return <div>{children}</div>
+    return <MockedProvider>{children}</MockedProvider>
 }
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
