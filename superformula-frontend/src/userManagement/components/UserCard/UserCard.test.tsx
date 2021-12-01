@@ -3,6 +3,10 @@ import { render, screen } from '../../../testUtils/testUtils'
 import UserCard from './UserCard'
 import { UserCardProps } from './UserCard.types'
 
+jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
+    Map: () => ({}),
+}))
+
 test('When User Card renders should show user avatar', () => {
     const user: UserCardProps = {
         user: {

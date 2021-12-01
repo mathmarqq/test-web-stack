@@ -6,6 +6,7 @@ import TextField from '../../../components/TextField/TextField'
 import Button from '../../../components/Button/Button'
 import styles from './EditModal.module.scss'
 import { updateUser as updateUserMutation } from '../../../infra/graphql/mutations'
+import Map from '../../../components/Map/Map'
 
 type FormData = {
     name: string
@@ -51,10 +52,11 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
         >
             <h3 className={styles.title}>Edit user</h3>
             <div className={styles.form}>
-                <img
+                {/* <img
                     src="http://recipes-food.club/wp-content/uploads/2019/01/capture.png"
                     alt="map"
-                />
+                /> */}
+                <Map className={styles.map} center={[-43.92164948043958, -19.887327212058217]} />
                 <form id="edit-user-form" className={styles.inputs} onSubmit={updateUser}>
                     <TextField
                         label="Name"
