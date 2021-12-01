@@ -1,0 +1,13 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "mapboxApiAccessToken",
+      "environmentVariableName": "MAPBOX_API_ACCESS_TOKEN"
+    },
+    {
+      "cloudFormationParameterName": "mapboxApiUrl",
+      "environmentVariableName": "MAPBOX_API_URL"
+    }
+  ]
+}

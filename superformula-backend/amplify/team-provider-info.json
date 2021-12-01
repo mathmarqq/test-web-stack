@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-superformulabackend-dev-234340-authRole",
+      "UnauthRoleArn": "arn:aws:iam::609199696460:role/amplify-superformulabackend-dev-234340-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::609199696460:role/amplify-superformulabackend-dev-234340-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-superformulabackend-dev-234340-deployment",
+      "UnauthRoleName": "amplify-superformulabackend-dev-234340-unauthRole",
+      "StackName": "amplify-superformulabackend-dev-234340",
+      "StackId": "arn:aws:cloudformation:us-east-2:609199696460:stack/amplify-superformulabackend-dev-234340/811c4e60-5250-11ec-90f5-066d34348cee",
+      "AmplifyAppId": "dr9lec10z1gh8"
+    },
+    "categories": {
+      "function": {
+        "getLocationDetails": {
+          "mapboxApiAccessToken": "12345",
+          "mapboxApiUrl": "https://api.mapbox.com/geocoding/v5",
+          "deploymentBucketName": "amplify-superformulabackend-dev-234340-deployment",
+          "s3Key": "amplify-builds/getLocationDetails-41376935326f736b7938-build.zip"
+        }
+      }
+    }
+  }
+}
