@@ -5,7 +5,7 @@ import Modal from '../../../components/Modal/Modal'
 import TextField from '../../../components/TextField/TextField'
 import Button from '../../../components/Button/Button'
 import styles from './EditModal.module.scss'
-import { updateUser } from '../../../infra/graphql/mutations'
+import { updateUser as updateUserMutation } from '../../../infra/graphql/mutations'
 
 type FormData = {
     name: string
@@ -20,7 +20,7 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
         description: user.description,
     })
 
-    const [updateUserAsync, { data }] = useMutation(updateUser)
+    const [updateUserAsync, { data }] = useMutation(updateUserMutation)
 
     useEffect(() => {
         if (data) {
@@ -28,15 +28,15 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
         }
     }, [data, onSave])
 
-    function handleUpdateuser(e: FormEvent<HTMLFormElement>) {
+    function updateUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         updateUserAsync({
-            variables: { id: user.id, ...formData },
+            variables: { input: { id: user.id, ...formData } },
         })
     }
 
-    function handleChange(key: string, e: ChangeEvent<HTMLInputElement>) {
+    function changeInput(key: string, e: ChangeEvent<HTMLInputElement>) {
         setFormData({
             ...formData,
             [key]: e.target.value,
@@ -55,24 +55,24 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
                     src="http://recipes-food.club/wp-content/uploads/2019/01/capture.png"
                     alt="map"
                 />
-                <form id="edit-user-form" className={styles.inputs} onSubmit={handleUpdateuser}>
+                <form id="edit-user-form" className={styles.inputs} onSubmit={updateUser}>
                     <TextField
                         label="Name"
                         inputId="nameInput"
                         value={formData.name}
-                        onChange={(event) => handleChange('name', event)}
+                        onChange={(event) => changeInput('name', event)}
                     />
                     <TextField
                         label="Location"
                         inputId="locationInput"
                         value={formData.address}
-                        onChange={(event) => handleChange('address', event)}
+                        onChange={(event) => changeInput('address', event)}
                     />
                     <TextField
                         label="Description"
                         inputId="descriptionInput"
                         value={formData.description}
-                        onChange={(event) => handleChange('description', event)}
+                        onChange={(event) => changeInput('description', event)}
                     />
                 </form>
             </div>

@@ -1,1 +1,1 @@
-export * from './findUsers'
+export * from './listUsers'
