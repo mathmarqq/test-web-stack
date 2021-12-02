@@ -1,0 +1,20 @@
+{
+    "data": {
+        "listUsers": {
+            "items": [
+                {
+                    "id": "4nfmDKKePAWPYsctPFRRnB",
+                    "name": "Miss Bruce Spencer",
+                    "dob": null,
+                    "address": "West Melba Utah 23937-4479",
+                    "description": "Et itaque non velit illo ullam non consectetur ut sed.",
+                    "createdAt": "1995-09-14T09:07:31Z",
+                    "updatedAt": "1994-02-20T06:06:41Z",
+                    "__typename": "User"
+                }
+            ],
+            "nextToken": null,
+            "__typename": "ModelUserConnection"
+        }
+    }
+}
