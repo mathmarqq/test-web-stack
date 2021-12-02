@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useMemo, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import { EditModalProps } from './EditModal.types'
+import { User } from 'userManagement/models/User'
 import Modal from '../../../components/Modal/Modal'
 import TextField from '../../../components/TextField/TextField'
 import Button from '../../../components/Button/Button'
@@ -19,6 +19,12 @@ type FormData = {
     name: string
     address: string
     description: string
+}
+
+type EditModalProps = {
+    user: User
+    onSave: () => void
+    onClose: () => void
 }
 
 function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
@@ -140,3 +146,4 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
 }
 
 export default EditModal
+export type { EditModalProps }
