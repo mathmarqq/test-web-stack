@@ -1,6 +1,10 @@
-import React, { ReactElement } from 'react'
-import { ButtonProps } from './Button.types'
+import React, { ButtonHTMLAttributes, ReactElement } from 'react'
+import { themeVariant } from 'styles'
 import styles from './Button.module.scss'
+
+type ButtonProps = {
+    variant: themeVariant
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 function Button({ children, className, ...props }: ButtonProps): ReactElement {
     const getStyle = (): string => {
@@ -15,3 +19,4 @@ function Button({ children, className, ...props }: ButtonProps): ReactElement {
 }
 
 export default Button
+export type { ButtonProps }
