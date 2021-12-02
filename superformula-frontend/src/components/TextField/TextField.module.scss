@@ -1,14 +1,14 @@
-.textField {
-    display: flex;
-    flex-direction: column;
+.label {
+    font-weight: 600;
+    font-size: var(--typography-subtitle-1);
+    margin-bottom: 0.5rem;
+}
 
-    .label {
-        font-weight: 600;
-        font-size: var(--typography-subtitle-1);
-        margin-bottom: 0.5rem;
-    }
+.input {
+    font-size: var(--typography-h5);
+}
 
-    .input {
-        font-size: var(--typography-h5);
-    }
+.label,
+.input {
+    display: block;
 }
