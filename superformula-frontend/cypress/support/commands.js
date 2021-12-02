@@ -23,3 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('interceptGraphql', (callback) => {
+    return cy.intercept('POST', Cypress.env('REACT_APP_API_URL'), callback)
+})
