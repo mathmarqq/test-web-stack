@@ -31,12 +31,14 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
                 </div>
                 <p className={styles.description}>{description}</p>
             </Card>
-            <EditModal
-                user={user}
-                isShowing={isShowingModal}
-                onSave={() => onSave()}
-                onClose={() => setIsShowingModal(false)}
-            />
+            {isShowingModal ? (
+                <EditModal
+                    user={user}
+                    isShowing={isShowingModal}
+                    onSave={() => onSave()}
+                    onClose={() => setIsShowingModal(false)}
+                />
+            ) : null}
         </>
     )
 }

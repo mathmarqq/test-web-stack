@@ -5,7 +5,7 @@ import styles from './Map.module.scss'
 mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX_ACCESS_KEY as string
 
 type MapProps = {
-    center: Extract<LngLatLike, [number, number]>
+    center: Extract<LngLatLike, { lng: number; lat: number }>
     // eslint-disable-next-line react/require-default-props
     className?: string
 }
@@ -27,8 +27,6 @@ function Map({ center, className }: MapProps): ReactElement {
 
             new mapboxgl.Marker().setLngLat(center).addTo(map.current)
         }
-
-        return () => map.current?.remove()
     })
 
     useEffect(() => {

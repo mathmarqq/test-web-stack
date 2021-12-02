@@ -29,7 +29,7 @@ type ListUsersQueryVariables = {
 }
 
 type ListUsersResponse = {
-    listUsers: FindUserType | null
+    listUsers: FindUserType
 }
 
 type FindUserType = {

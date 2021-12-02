@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useState } from 'react'
-import { useMutation } from '@apollo/client'
+import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useMemo, useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
 import { EditModalProps } from './EditModal.types'
 import Modal from '../../../components/Modal/Modal'
 import TextField from '../../../components/TextField/TextField'
@@ -7,6 +7,13 @@ import Button from '../../../components/Button/Button'
 import styles from './EditModal.module.scss'
 import { updateUser as updateUserMutation } from '../../../infra/graphql/mutations'
 import Map from '../../../components/Map/Map'
+import {
+    getLocation,
+    GetLocationResponse,
+    GetLocationQueryVariables,
+} from '../../../infra/graphql/queries'
+import Loader from '../../../components/Loader/Loader'
+import { _debounce } from '../../../utils/utils'
 
 type FormData = {
     name: string
@@ -22,6 +29,18 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
     })
 
     const [updateUserAsync, { data }] = useMutation(updateUserMutation)
+
+    const {
+        data: locationData,
+        loading,
+        refetch,
+    } = useQuery<GetLocationResponse, GetLocationQueryVariables>(getLocation, {
+        variables: {
+            address: user.address,
+        },
+    })
+
+    const debouncedRefetch = useMemo(() => _debounce(refetch, 1000), [refetch])
 
     useEffect(() => {
         if (data) {
@@ -44,6 +63,44 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
         })
     }
 
+    function changeAdress(event: ChangeEvent<HTMLInputElement>) {
+        changeInput('address', event)
+
+        debouncedRefetch({
+            address: event.target.value,
+        })
+    }
+
+    function renderMapContainer() {
+        let content
+
+        if (loading) {
+            content = (
+                <div className={styles.loadWrapper}>
+                    <Loader />
+                </div>
+            )
+        } else if (locationData?.getLocation.latitude && locationData?.getLocation.longitude) {
+            content = (
+                <Map
+                    className={styles.map}
+                    center={{
+                        lat: locationData.getLocation.latitude,
+                        lng: locationData.getLocation.longitude,
+                    }}
+                />
+            )
+        } else {
+            content = (
+                <div className={styles.wrongAdressWrapper}>
+                    <span>We do not find your address :(</span>
+                </div>
+            )
+        }
+
+        return content
+    }
+
     return (
         <Modal
             isShowing={isShowing}
@@ -52,11 +109,7 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
         >
             <h3 className={styles.title}>Edit user</h3>
             <div className={styles.form}>
-                {/* <img
-                    src="http://recipes-food.club/wp-content/uploads/2019/01/capture.png"
-                    alt="map"
-                /> */}
-                <Map className={styles.map} center={[-43.92164948043958, -19.887327212058217]} />
+                {renderMapContainer()}
                 <form id="edit-user-form" className={styles.inputs} onSubmit={updateUser}>
                     <TextField
                         label="Name"
@@ -68,7 +121,7 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
                         label="Location"
                         inputId="locationInput"
                         value={formData.address}
-                        onChange={(event) => changeInput('address', event)}
+                        onChange={(event) => changeAdress(event)}
                     />
                     <TextField
                         label="Description"
