@@ -3,8 +3,7 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
 import styles from '../../styles/themes.module.scss'
-import Loader from './Loader'
-import { LoaderProps } from './Loader.types'
+import Loader, { LoaderProps } from './Loader'
 
 export default {
     title: 'Components/Loader',
