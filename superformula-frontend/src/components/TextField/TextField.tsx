@@ -13,7 +13,7 @@ function TextField({ label, inputId, ...props }: TextFieldProps): ReactElement {
             <label className={styles.label} htmlFor={inputId}>
                 {label}
             </label>
-            <Input className={styles.input} id={inputId} {...props} />
+            <Input type="text" className={styles.input} id={inputId} {...props} />
         </>
     )
 }

@@ -1,14 +1,13 @@
 import React from 'react'
-import { render, screen } from '../../../testUtils/testUtils'
-import UserCard from './UserCard'
-import { UserCardProps } from './UserCard.types'
+import { fireEvent, render, screen } from 'testUtils/testUtils'
+import UserCard, { UserCardProps } from './UserCard'
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
     Map: () => ({}),
 }))
 
-test('When User Card renders should show user avatar', () => {
-    const user: UserCardProps = {
+const setup = () => {
+    const userProps: UserCardProps = {
         user: {
             id: 1,
             name: 'Fake Name',
@@ -20,7 +19,13 @@ test('When User Card renders should show user avatar', () => {
         onEdit: () => {},
     }
 
-    render(<UserCard {...user} />)
+    return { userProps }
+}
+
+test('When User Card renders should show user avatar', () => {
+    const { userProps } = setup()
+
+    render(<UserCard {...userProps} />)
 
     const image = screen.getByAltText('Fake Name')
 
@@ -28,55 +33,62 @@ test('When User Card renders should show user avatar', () => {
 })
 
 test('When User Card renders should show user name in uppercase', () => {
-    const user: UserCardProps = {
-        user: {
-            id: 1,
-            name: 'Fake Name',
-            description: 'description',
-            imgUrl: 'fake_url',
-            createdAt: new Date(),
-            address: 'address',
-        },
-        onEdit: () => {},
-    }
+    const { userProps } = setup()
 
-    render(<UserCard {...user} />)
+    render(<UserCard {...userProps} />)
 
     expect(screen.getByText('FAKE NAME')).toBeInTheDocument()
 })
 
 test('When User Card renders should show user description', () => {
-    const user: UserCardProps = {
-        user: {
-            id: 1,
-            name: 'Fake Name',
-            description: 'description',
-            imgUrl: 'fake_url',
-            createdAt: new Date(),
-            address: 'address',
-        },
-        onEdit: () => {},
-    }
+    const { userProps } = setup()
 
-    render(<UserCard {...user} />)
+    render(<UserCard {...userProps} />)
 
     expect(screen.getByText('description')).toBeInTheDocument()
 })
 
-test('When User Card is hovered should show user creation date', () => {
-    const user: UserCardProps = {
-        user: {
-            id: 1,
-            name: 'Fake Name',
-            description: 'description',
-            imgUrl: 'fake_url',
-            createdAt: new Date('Sun Nov 28 2021 23:47:40 GMT-0300'),
-            address: 'address',
-        },
-        onEdit: () => {},
-    }
+test('When user click on edit should show a modal', () => {
+    const { userProps } = setup()
 
-    render(<UserCard {...user} />)
+    render(<UserCard {...userProps} />)
 
-    expect(screen.getByText('28 Nov 2021')).toBeInTheDocument()
+    const editButton = screen.getByTitle('Edit User')
+
+    fireEvent.click(editButton)
+
+    expect(screen.getByText('Edit user')).toBeInTheDocument()
+})
+
+test('When user click on edit should show a modal with user data', () => {
+    const { userProps } = setup()
+
+    render(<UserCard {...userProps} />)
+
+    const editButton = screen.getByTitle('Edit User')
+    fireEvent.click(editButton)
+
+    const name = screen.getByLabelText('Name') as HTMLInputElement
+    const address = screen.getByLabelText('Location') as HTMLInputElement
+    const description = screen.getByLabelText('Description') as HTMLInputElement
+
+    expect(name.value).toBe(userProps.user.name)
+    expect(address.value).toBe(userProps.user.address)
+    expect(description.value).toBe(userProps.user.description)
+})
+
+test('When user click on close modal should make modal dissapear', () => {
+    const { userProps } = setup()
+
+    render(<UserCard {...userProps} />)
+
+    const editButton = screen.getByTitle('Edit User')
+    fireEvent.click(editButton)
+
+    const cancelButton = screen.getByRole('button', {
+        name: 'Cancel',
+    })
+    fireEvent.click(cancelButton)
+
+    expect(screen.queryByText('Edit user')).not.toBeInTheDocument()
 })

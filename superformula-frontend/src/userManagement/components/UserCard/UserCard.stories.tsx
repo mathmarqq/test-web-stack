@@ -3,8 +3,7 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
 import styles from '../../../styles/themes.module.scss'
-import { UserCardProps } from './UserCard.types'
-import UserCard from './UserCard'
+import UserCard, { UserCardProps } from './UserCard'
 
 export default {
     title: 'Components/UserManagement/Card',

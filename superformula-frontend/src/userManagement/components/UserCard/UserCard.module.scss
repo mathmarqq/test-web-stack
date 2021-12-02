@@ -1,25 +1,33 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     padding: 2rem 2.5rem;
-    width: 320px;
-    height: 272px;
+    width: 20rem;
+    height: 18rem;
 
     .actionButtons {
         width: 100%;
         text-align: end;
-        opacity: 0;
-        transition: 0.2s;
+
+        .editButton {
+            border: none;
+            background: none;
+        }
+
+        .hideInformation {
+            display: none;
+        }
 
         .editIcon {
             cursor: pointer;
         }
     }
 
-    &:hover .actionButtons {
+    .hoveredElement {
+        opacity: 0;
         transition: 0.2s;
+    }
+
+    &:hover .hoveredElement {
         opacity: 1;
     }
 
@@ -43,23 +51,14 @@
         }
     }
 
-    .dateInformation {
-        opacity: 0;
-        transition: 0.2s;
-    }
-
-    &:hover .dateInformation {
-        opacity: 1;
-        transition: 0.2s;
-    }
-
     .description {
+        text-align: start;
         white-space: nowrap;
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         font-weight: 300;
-        font-size: 16px;
+        font-size: var(--typography-body-1);
         color: var(--primary-main-contrast);
         margin: 0;
     }
