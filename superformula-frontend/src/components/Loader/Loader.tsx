@@ -6,7 +6,7 @@ type LoaderProps = {
 }
 
 function Loader({ className }: LoaderProps): ReactElement {
-    return <div className={`${styles.loader} ${className}`} />
+    return <div data-testid="loader" className={`${styles.loader} ${className}`} />
 }
 
 Loader.defaultProps = {

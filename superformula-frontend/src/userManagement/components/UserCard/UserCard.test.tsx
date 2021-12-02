@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, screen } from 'testUtils/testUtils'
+import { MockedProvider } from '@apollo/client/testing'
 import UserCard, { UserCardProps } from './UserCard'
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
@@ -25,7 +26,11 @@ const setup = () => {
 test('When User Card renders should show user avatar', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     const image = screen.getByAltText('Fake Name')
 
@@ -35,7 +40,11 @@ test('When User Card renders should show user avatar', () => {
 test('When User Card renders should show user name in uppercase', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     expect(screen.getByText('FAKE NAME')).toBeInTheDocument()
 })
@@ -43,7 +52,11 @@ test('When User Card renders should show user name in uppercase', () => {
 test('When User Card renders should show user description', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     expect(screen.getByText('description')).toBeInTheDocument()
 })
@@ -51,7 +64,11 @@ test('When User Card renders should show user description', () => {
 test('When user click on edit should show a modal', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     const editButton = screen.getByTitle('Edit User')
 
@@ -63,7 +80,11 @@ test('When user click on edit should show a modal', () => {
 test('When user click on edit should show a modal with user data', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     const editButton = screen.getByTitle('Edit User')
     fireEvent.click(editButton)
@@ -80,7 +101,11 @@ test('When user click on edit should show a modal with user data', () => {
 test('When user click on close modal should make modal dissapear', () => {
     const { userProps } = setup()
 
-    render(<UserCard {...userProps} />)
+    render(
+        <MockedProvider>
+            <UserCard {...userProps} />
+        </MockedProvider>
+    )
 
     const editButton = screen.getByTitle('Edit User')
     fireEvent.click(editButton)
