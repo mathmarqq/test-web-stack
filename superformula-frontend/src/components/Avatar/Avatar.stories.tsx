@@ -3,8 +3,7 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
 import styles from '../../styles/themes.module.scss'
-import Avatar from './Avatar'
-import { AvatarProps } from './Avatar.types'
+import Avatar, { AvatarProps } from './Avatar'
 
 export default {
     title: 'Components/Avatar',
