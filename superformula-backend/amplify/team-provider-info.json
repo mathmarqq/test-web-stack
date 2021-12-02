@@ -17,8 +17,11 @@
           "mapboxApiAccessToken": "12345",
           "mapboxApiUrl": "https://api.mapbox.com/geocoding/v5",
           "deploymentBucketName": "amplify-superformulabackend-dev-234340-deployment",
-          "s3Key": "amplify-builds/getLocationDetails-41376935326f736b7938-build.zip"
+          "s3Key": "amplify-builds/getLocationDetails-476e57617a456f6c542b-build.zip"
         }
+      },
+      "auth": {
+        "superformulabackendc1b223b8": {}
       }
     }
   }

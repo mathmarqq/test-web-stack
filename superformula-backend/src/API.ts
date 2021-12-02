@@ -89,6 +89,12 @@ export type DeleteUserInput = {
   id: string,
 };
 
+export type GetLocationQuery = {
+  __typename: "GetLocationQuery",
+  latitude?: Array< number | null > | null,
+  longitude?: Array< number | null > | null,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -175,6 +181,18 @@ export type DeleteUserMutation = {
     description: string,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type GetLocationQueryVariables = {
+  address: string,
+};
+
+export type GetLocationQuery = {
+  getLocation?:  {
+    __typename: "GetLocationQuery",
+    latitude?: Array< number | null > | null,
+    longitude?: Array< number | null > | null,
   } | null,
 };
 

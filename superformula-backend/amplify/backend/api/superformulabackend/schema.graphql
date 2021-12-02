@@ -11,3 +11,13 @@ type User @model {
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
+
+type GetLocationQuery {
+  latitude: Float
+  longitude: Float
+}
+
+type Query {
+  getLocation(address: String!): GetLocationQuery
+    @function(name: "getLocationDetails-${env}")
+}

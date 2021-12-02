@@ -6,8 +6,8 @@
     "gqlSchemaPath": "/Users/lamatheus.marques/Documents/personal-projects/superformula/test-web-stack/superformula-backend/amplify/backend/api/superformulabackend/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 40,
-      "apiKeyExpirationDate": "2022-01-10T02:46:41.209Z",
+      "expirationTime": 60,
+      "apiKeyExpirationDate": "2022-01-30T23:47:41.841Z",
       "keyDescription": ""
     }
   }
