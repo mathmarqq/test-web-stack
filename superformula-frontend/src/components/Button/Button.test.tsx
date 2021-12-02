@@ -3,7 +3,7 @@ import { render, screen } from '../../testUtils/testUtils'
 import Button from './Button'
 
 test('When button renders should show his children', () => {
-    render(<Button variant="primary">Teste</Button>)
+    render(<Button variant="primary">Test</Button>)
 
-    expect(screen.getByText('Teste')).toBeInTheDocument()
+    expect(screen.getByText('Test')).toBeInTheDocument()
 })

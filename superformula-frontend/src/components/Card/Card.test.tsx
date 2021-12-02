@@ -3,7 +3,7 @@ import { render, screen } from '../../testUtils/testUtils'
 import Card from './Card'
 
 test('When Card renders should show his children', () => {
-    render(<Card>Teste</Card>)
+    render(<Card>Test</Card>)
 
-    expect(screen.getByText('Teste')).toBeInTheDocument()
+    expect(screen.getByText('Test')).toBeInTheDocument()
 })
