@@ -6,20 +6,19 @@ mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX_ACCESS_KEY as string
 
 type MapProps = {
     center: Extract<LngLatLike, { lng: number; lat: number }>
-    // eslint-disable-next-line react/require-default-props
     className?: string
 }
 
 function Map({ center, className }: MapProps): ReactElement {
-    const mapContainer = useRef<HTMLDivElement | null>(null)
+    const mapElementWrapper = useRef<HTMLDivElement | null>(null)
     const map = useRef<mapboxgl.Map | null>(null)
 
     useEffect(() => {
-        if (!map.current && mapContainer.current) {
+        if (!map.current && mapElementWrapper.current) {
             const defaultZoom = 16
 
             map.current = new mapboxgl.Map({
-                container: mapContainer.current,
+                container: mapElementWrapper.current,
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center,
                 zoom: defaultZoom,
@@ -36,7 +35,12 @@ function Map({ center, className }: MapProps): ReactElement {
         }
     }, [center])
 
-    return <div ref={mapContainer} className={`${styles.map} ${className}`} />
+    return <div ref={mapElementWrapper} className={`${styles.map} ${className}`} />
+}
+
+Map.defaultProps = {
+    className: '',
 }
 
 export default Map
+export type { MapProps }
