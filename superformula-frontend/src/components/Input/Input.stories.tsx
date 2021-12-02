@@ -3,8 +3,7 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
 import styles from '../../styles/themes.module.scss'
-import { InputProps } from './Input.types'
-import Input from './Input'
+import Input, { InputProps } from './Input'
 
 export default {
     title: 'Components/Input',
@@ -21,3 +20,5 @@ export default {
 const Template: Story<InputProps> = (args: InputProps) => <Input {...args} />
 
 export const Main = Template.bind({})
+
+Main.args = { placeholder: 'Placeholder' }

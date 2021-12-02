@@ -1,4 +1,4 @@
-import { InputProps } from '../Input/Input.types'
+import { InputProps } from 'components/Input'
 
 type TextFieldProps = {
     label: string
