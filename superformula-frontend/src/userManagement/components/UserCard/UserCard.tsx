@@ -34,7 +34,6 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
             {isShowingModal ? (
                 <EditModal
                     user={user}
-                    isShowing={isShowingModal}
                     onSave={() => onSave()}
                     onClose={() => setIsShowingModal(false)}
                 />

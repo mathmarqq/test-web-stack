@@ -21,7 +21,7 @@ type FormData = {
     description: string
 }
 
-function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactElement {
+function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
     const [formData, setFormData] = useState<FormData>({
         name: user.name,
         address: user.address,
@@ -102,11 +102,7 @@ function EditModal({ user, isShowing, onSave, onClose }: EditModalProps): ReactE
     }
 
     return (
-        <Modal
-            isShowing={isShowing}
-            className={styles.modal}
-            backgroundClassName={styles.background}
-        >
+        <Modal className={styles.modal} backgroundClassName={styles.background}>
             <h3 className={styles.title}>Edit user</h3>
             <div className={styles.form}>
                 {renderMapContainer()}
