@@ -5,7 +5,7 @@
 
 ## Online demo
 
-The app is available for preview at https://d2f94fb88g7o9v.cloudfront.net/
+The app is available for preview at https://user-management-superformula.netlify.app/
 
 ## Architecture
 
