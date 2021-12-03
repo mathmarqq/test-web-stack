@@ -41,13 +41,17 @@
     }
 
     .actionButtons {
+        position: absolute;
+        bottom: 0;
+        padding-bottom: 3rem;
+
         @include respond-to('laptop') {
+            position: initial;
+            padding: 0;
             text-align: end;
         }
 
         button {
-            width: 100%;
-
             @include respond-to('laptop') {
                 width: 17rem;
             }
