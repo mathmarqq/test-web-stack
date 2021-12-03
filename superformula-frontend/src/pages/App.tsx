@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styles from '../styles/themes.module.scss'
+import styles from '../styles/index.module.scss'
 import Routes from './Routes'
 import Providers from '../providers/Providers'
 

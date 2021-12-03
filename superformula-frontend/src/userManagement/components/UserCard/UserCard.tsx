@@ -38,7 +38,7 @@ function UserCard({ user, onEdit }: UserCardProps): ReactElement {
                 </div>
                 <Avatar imgUrl={imgUrl || ''} imgAlt={name} className={styles.avatar} />
                 <div className={styles.titleSection}>
-                    <h2 className={styles.title}>{name.toUpperCase()}</h2>
+                    <h2>{name.toUpperCase()}</h2>
                     <span className={styles.hoveredElement}>
                         created <span className={styles.date}>{formatDate(createdAt)}</span>
                     </span>

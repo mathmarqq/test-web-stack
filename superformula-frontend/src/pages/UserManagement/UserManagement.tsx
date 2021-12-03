@@ -54,31 +54,35 @@ function UserManagement(): ReactElement {
 
     return (
         <div className={styles.page}>
-            <div className={styles.header}>
-                <h1>Users list</h1>
-                <Input
-                    value={search}
-                    onChange={(event) => fetchSearchedUsers(event)}
-                    placeholder="Search..."
-                />
-            </div>
-            <div className={isFetching() ? styles.loadingWrapper : styles.cardsWrapper}>
-                {renderContent()}
-            </div>
-            <div className={styles.loadMoreWrapper}>
-                {isFetchingMore() ? (
-                    <Loader />
-                ) : (
-                    <Button
-                        variant="primary"
-                        onClick={() => fetchNextPage()}
-                        disabled={
-                            isFetching() || isFetchingMore() || data?.listUsers?.nextToken === null
-                        }
-                    >
-                        Load More
-                    </Button>
-                )}
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1>Users list</h1>
+                    <Input
+                        value={search}
+                        onChange={(event) => fetchSearchedUsers(event)}
+                        placeholder="Search..."
+                    />
+                </div>
+                <div className={isFetching() ? styles.loadingWrapper : styles.cardsWrapper}>
+                    {renderContent()}
+                </div>
+                <div className={styles.loadMoreWrapper}>
+                    {isFetchingMore() ? (
+                        <Loader />
+                    ) : (
+                        <Button
+                            variant="primary"
+                            onClick={() => fetchNextPage()}
+                            disabled={
+                                isFetching() ||
+                                isFetchingMore() ||
+                                data?.listUsers?.nextToken === null
+                            }
+                        >
+                            Load More
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     )
