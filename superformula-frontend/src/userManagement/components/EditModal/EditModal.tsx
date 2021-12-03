@@ -108,7 +108,7 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
     }
 
     return (
-        <Modal className={styles.modal} backgroundClassName={styles.background}>
+        <Modal className={styles.modal} backgroundClassName={styles.background} onClose={onClose}>
             <h3 className={styles.title}>Edit user</h3>
             <div className={styles.form}>
                 {renderMapContainer()}

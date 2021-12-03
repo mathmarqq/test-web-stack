@@ -2,8 +2,13 @@
     width: 17rem;
     height: 5rem;
     font-size: var(--typography-button);
-    border-radius: 8px;
-    border-color: var(--border-color);
+    border-radius: 0.5rem;
+    border: 0.25rem solid var(--border-color);
+
+    &:hover,
+    &:focus {
+        border: 0.25rem solid var(--border-color-accent);
+    }
 }
 
 .primaryButton {

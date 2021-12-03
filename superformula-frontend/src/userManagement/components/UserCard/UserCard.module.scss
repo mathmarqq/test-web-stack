@@ -1,3 +1,5 @@
+@import '../../../styles/mixins.scss';
+
 .card {
     text-align: center;
     padding: 2rem 2.5rem;
@@ -23,8 +25,10 @@
     }
 
     .hoveredElement {
-        opacity: 0;
-        transition: 0.2s;
+        @include respond-to('laptop') {
+            opacity: 0;
+            transition: 0.2s;
+        }
     }
 
     &:hover .hoveredElement {
@@ -38,11 +42,18 @@
 
     .titleSection {
         display: flex;
+        flex-direction: column;
         align-items: center;
         width: 100%;
         justify-content: space-between;
+        padding: 1rem 0;
+
+        @include respond-to('laptop') {
+            flex-direction: row;
+        }
 
         h2 {
+            margin: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

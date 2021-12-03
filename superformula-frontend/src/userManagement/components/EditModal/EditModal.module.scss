@@ -1,3 +1,5 @@
+@import '../../../styles/mixins.scss';
+
 .background {
     display: flex;
     justify-content: center;
@@ -7,9 +9,17 @@
 .modal {
     border-radius: 0.5rem;
     background-color: var(--secondary-main);
-    padding: 4rem;
-    width: 70%;
-    max-width: 60rem;
+    padding: 3rem;
+    height: 100vh;
+    width: 100vh;
+    box-sizing: border-box;
+    position: relative;
+
+    @include respond-to('laptop') {
+        max-width: 70rem;
+        width: 70%;
+        height: auto;
+    }
 
     .title {
         font-size: var(--typography-h4);
@@ -19,18 +29,16 @@
 
     .form {
         display: flex;
-        padding: 4rem 0;
+        padding: 1rem 0;
         column-gap: 2rem;
 
         .loadWrapper {
-            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .wrongAdressWrapper {
-            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,24 +48,49 @@
             }
         }
 
-        .map {
-            width: 32rem;
-            height: 21rem;
-            flex: 1;
+        .map,
+        .loadWrapper,
+        .wrongAdressWrapper {
+            display: none;
+
+            @include respond-to('laptop') {
+                display: block;
+                width: 20rem;
+                height: 20rem;
+                flex: 1;
+            }
         }
 
         .inputs {
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
     }
 
     .actionButtons {
-        text-align: end;
+        @include respond-to('laptop') {
+            text-align: end;
+        }
+
+        button {
+            width: 100%;
+
+            @include respond-to('laptop') {
+                width: 17rem;
+            }
+
+            cursor: pointer;
+        }
 
         button:last-child {
-            margin-left: 4rem;
+            margin-top: 1rem;
+
+            @include respond-to('laptop') {
+                margin-top: 0;
+                margin-left: 4rem;
+            }
         }
     }
 }

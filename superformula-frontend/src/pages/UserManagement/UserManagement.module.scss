@@ -1,21 +1,26 @@
 @import '../../styles//mixins.scss';
 
 .page {
-    overflow: auto;
+    overflow: hidden;
     height: 100vh;
+
+    @include respond-to('laptop') {
+        overflow: auto;
+    }
 
     .container {
         display: flex;
         flex-direction: column;
         padding: 2rem;
-        max-width: 100rem;
-        margin: auto;
         overflow: auto;
         height: 100%;
         box-sizing: border-box;
 
         @include respond-to('laptop') {
             overflow: hidden;
+            height: auto;
+            max-width: 100rem;
+            margin: auto;
         }
     }
 
