@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '../../testUtils/testUtils'
+import { render, screen } from '../../utils/testUtils'
 import Avatar from './Avatar'
 
 test('When avatar renders should be have a alt atribute and src url', () => {

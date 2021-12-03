@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '../../testUtils/testUtils'
+import { render, screen } from '../../utils/testUtils'
 import Card from './Card'
 
 test('When Card renders should show his children', () => {

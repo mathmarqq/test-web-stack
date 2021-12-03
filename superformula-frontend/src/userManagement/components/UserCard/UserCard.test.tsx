@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen } from 'testUtils/testUtils'
+import { fireEvent, render, screen } from 'utils/testUtils'
 import { MockedProvider } from '@apollo/client/testing'
 import UserCard, { UserCardProps } from './UserCard'
 

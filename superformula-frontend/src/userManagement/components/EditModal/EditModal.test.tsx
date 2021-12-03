@@ -1,7 +1,7 @@
 import { MockedProvider } from '@apollo/client/testing'
 import { updateUser } from 'infra/graphql/mutations'
 import React from 'react'
-import { fireEvent, render, screen, waitFor } from 'testUtils/testUtils'
+import { fireEvent, render, screen, waitFor } from 'utils/testUtils'
 import { getLocation } from 'infra/graphql/queries'
 import EditModal, { EditModalProps } from './EditModal'
 
