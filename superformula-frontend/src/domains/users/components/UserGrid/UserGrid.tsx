@@ -37,7 +37,7 @@ function UserGrid({ users, loading, onEdit }: UserGridProps): ReactElement {
             )
         } else {
             content = (
-                <div className={styles.wrongAdressWrapper}>
+                <div className={styles.notFound}>
                     <span>We cannot find users :(</span>
                 </div>
             )

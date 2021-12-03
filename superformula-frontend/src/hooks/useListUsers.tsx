@@ -43,18 +43,21 @@ function useListUsers({ page, limit }: HookParams): HookResponse {
         })
     }, [currentSearch, data?.listUsers?.nextToken, fetchMore, limit])
 
-    function refetchUsers(search: string) {
-        setCurrentSearch(search)
-        refetch({
-            filter: {
-                name: {
-                    contains: search,
+    const refetchUsers = useCallback(
+        (search: string) => {
+            setCurrentSearch(search)
+            refetch({
+                filter: {
+                    name: {
+                        contains: search,
+                    },
                 },
-            },
-            nextToken: null,
-            limit,
-        })
-    }
+                nextToken: null,
+                limit,
+            })
+        },
+        [limit, refetch]
+    )
 
     function isFetching() {
         return loading && networkStatus !== NetworkStatus.fetchMore
