@@ -167,7 +167,7 @@ test('When user modal renders and location could not found should show a helper 
     )
 
     await waitFor(() => {
-        expect(screen.getByText('We do not find your address :(')).toBeInTheDocument()
+        expect(screen.getByText('We cannot find your address :(')).toBeInTheDocument()
     })
 })
 

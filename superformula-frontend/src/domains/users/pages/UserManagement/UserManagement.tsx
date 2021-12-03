@@ -1,15 +1,12 @@
 import React, { ReactElement, useState } from 'react'
-import UserCard from 'domains/users/components/UserCard/UserCard'
 import Input from 'components/Input/Input'
 import Button from 'components/Button/Button'
 import useQueryParams, { QueryParam } from 'hooks/useQueryParams'
 import Loader from 'components/Loader/Loader'
 import useListUsers from 'hooks/useListUsers'
 import { getIntegerQueryParam } from 'utils/queryHelper'
+import UserGrid from 'domains/users/components/UserGrid/UserGrid'
 import styles from './UserManagement.module.scss'
-
-const image =
-    'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801'
 
 const PAGE_LIMIT = 6
 
@@ -38,20 +35,6 @@ function UserManagement(): ReactElement {
         fetchMoreUsers()
     }
 
-    function renderContent() {
-        return isFetching() ? (
-            <Loader />
-        ) : (
-            data?.listUsers?.items.map((user) => (
-                <UserCard
-                    key={user.id}
-                    user={{ ...user, imgUrl: image }}
-                    onEdit={() => refetchUsers(search)}
-                />
-            ))
-        )
-    }
-
     return (
         <div className={styles.page}>
             <div className={styles.container}>
@@ -63,9 +46,7 @@ function UserManagement(): ReactElement {
                         placeholder="Search..."
                     />
                 </div>
-                <div className={isFetching() ? styles.loadingWrapper : styles.cardsWrapper}>
-                    {renderContent()}
-                </div>
+                <UserGrid users={[]} loading={isFetching()} onEdit={() => refetchUsers(search)} />
                 <div className={styles.loadMoreWrapper}>
                     {isFetchingMore() ? (
                         <Loader />

@@ -31,7 +31,7 @@ function ModalMap({ loading, center }: ModalMapProps): ReactElement {
         } else {
             content = (
                 <div className={styles.wrongAdressWrapper}>
-                    <span>We do not find your address :(</span>
+                    <span>We cannot find your address :(</span>
                 </div>
             )
         }
