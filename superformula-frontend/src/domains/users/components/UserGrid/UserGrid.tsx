@@ -4,9 +4,6 @@ import Loader from 'components/Loader/Loader'
 import { User } from 'domains/users/models/User'
 import styles from './UserGrid.module.scss'
 
-const image =
-    'https://media.istockphoto.com/photos/funny-west-highland-white-terrier-dog-decorated-with-photo-props-sits-picture-id1292884801'
-
 type UserGridProps = {
     users: User[]
     loading: boolean
@@ -29,7 +26,10 @@ function UserGrid({ users, loading, onEdit }: UserGridProps): ReactElement {
                     {users.map((user) => (
                         <UserCard
                             key={user.id}
-                            user={{ ...user, imgUrl: image }}
+                            user={{
+                                ...user,
+                                imgUrl: `https://source.unsplash.com/random/192x192?sig=${user?.id}`,
+                            }}
                             onEdit={() => onEdit()}
                         />
                     ))}
