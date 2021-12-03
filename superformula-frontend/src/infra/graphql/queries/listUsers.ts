@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { User } from '../../../userManagement/models/User'
+import { User } from 'domains/users/models/User'
 
 const listUsers = gql`
     query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {

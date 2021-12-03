@@ -1,19 +1,15 @@
 import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useMemo, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import { User } from 'userManagement/models/User'
-import Modal from '../../../components/Modal/Modal'
-import TextField from '../../../components/TextField/TextField'
-import Button from '../../../components/Button/Button'
+import Modal from 'components/Modal/Modal'
+import TextField from 'components/TextField/TextField'
+import Button from 'components/Button/Button'
+import { updateUser as updateUserMutation } from 'infra/graphql/mutations'
+import Map from 'components/Map/Map'
+import { getLocation, GetLocationResponse, GetLocationQueryVariables } from 'infra/graphql/queries'
+import Loader from 'components/Loader/Loader'
+import { _debounce } from 'utils/utils'
+import { User } from 'domains/users/models/User'
 import styles from './EditModal.module.scss'
-import { updateUser as updateUserMutation } from '../../../infra/graphql/mutations'
-import Map from '../../../components/Map/Map'
-import {
-    getLocation,
-    GetLocationResponse,
-    GetLocationQueryVariables,
-} from '../../../infra/graphql/queries'
-import Loader from '../../../components/Loader/Loader'
-import { _debounce } from '../../../utils/utils'
 
 type FormData = {
     name: string

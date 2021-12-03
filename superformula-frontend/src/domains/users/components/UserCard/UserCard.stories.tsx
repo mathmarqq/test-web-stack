@@ -2,12 +2,12 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
-import styles from '../../../styles/themes.module.scss'
-import EditModal, { EditModalProps } from './EditModal'
+import styles from 'styles/themes.module.scss'
+import UserCard, { UserCardProps } from './UserCard'
 
 export default {
-    title: 'Components/UserManagement/EditModal',
-    component: EditModal,
+    title: 'Components/UserManagement/Card',
+    component: UserCard,
     decorators: [
         (StoryComponent) => (
             <div className={styles.defaultTheme}>
@@ -17,7 +17,7 @@ export default {
     ],
 } as Meta
 
-const Template: Story<EditModalProps> = (args: EditModalProps) => <EditModal {...args} />
+const Template: Story<UserCardProps> = (args: UserCardProps) => <UserCard {...args} />
 
 export const Main = Template.bind({})
 Main.args = {

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import UserManagement from './UserManagement/UserManagement'
+import UserManagement from 'domains/users/pages/UserManagement/UserManagement'
 import NotFound from './NotFound/NotFound'
 
 function Routes(): ReactElement {

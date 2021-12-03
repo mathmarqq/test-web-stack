@@ -1,11 +1,11 @@
+import Avatar from 'components/Avatar/Avatar'
+import Card from 'components/Card/Card'
+import PenIcon from 'components/Icons/PenIcon'
 import React, { ReactElement, useState } from 'react'
-import { User } from 'userManagement/models/User'
-import Avatar from '../../../components/Avatar/Avatar'
-import Card from '../../../components/Card/Card'
+import EditModal from 'domains/users/components/EditModal/EditModal'
+import { formatDate } from 'utils/dateHelper'
+import { User } from 'domains/users/models/User'
 import styles from './UserCard.module.scss'
-import { formatDate } from '../../../utils/dateHelper'
-import PenIcon from '../../../components/Icons/PenIcon'
-import EditModal from '../EditModal/EditModal'
 
 type UserCardProps = {
     user: User
