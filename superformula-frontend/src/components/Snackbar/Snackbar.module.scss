@@ -1,0 +1,38 @@
+.snackbar {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 1.5rem auto;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 14px 16px;
+    min-height: 48px;
+    box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+    transform-origin: center;
+    text-align: center;
+    animation: show 0.4s;
+}
+
+.success {
+    color: var(--success-main-contrast);
+    background: var(--success-main);
+}
+
+.error {
+    color: var(--warn-main-contrast);
+    background: var(--warn-main);
+}
+
+@keyframes show {
+    from {
+        margin-bottom: 0;
+    }
+    to {
+        margin-bottom: 1.5rem;
+    }
+}

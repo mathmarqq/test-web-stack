@@ -1,7 +1,7 @@
 {
     "baseUrl": "http://localhost:3000",
     "env": {
-        "REACT_APP_API_URL": "https://teste/graphql"
+        "REACT_APP_API_URL": "https://v2yffdppqbga3nncirmj3sskla.appsync-api.us-east-2.amazonaws.com/graphql"
     },
     "viewportWidth": 1920,
     "viewportHeight": 1080

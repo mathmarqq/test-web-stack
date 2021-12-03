@@ -1,4 +1,4 @@
-import { NetworkStatus, useQuery } from '@apollo/client'
+import { ApolloQueryResult, NetworkStatus, useQuery } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import {
     listUsers as listUsersQuery,
@@ -10,16 +10,16 @@ type HookParams = { page: number; limit: number }
 
 type HookResponse = {
     data: ListUsersResponse | undefined
-    fetchMoreUsers: () => void
-    refetchUsers: (search: string) => void
+    fetchMoreUsers: () => Promise<ApolloQueryResult<ListUsersResponse>>
+    refetchUsers: (search: string) => Promise<ApolloQueryResult<ListUsersResponse>>
     isFetching: () => boolean
-    isFetchingMore: () => boolean
+    error: unknown
 }
 
 function useListUsers({ page, limit }: HookParams): HookResponse {
     const [currentSearch, setCurrentSearch] = useState('')
 
-    const { loading, data, networkStatus, fetchMore, refetch } = useQuery<
+    const { loading, data, networkStatus, fetchMore, refetch, error } = useQuery<
         ListUsersResponse,
         ListUsersQueryVariables
     >(listUsersQuery, {
@@ -30,7 +30,7 @@ function useListUsers({ page, limit }: HookParams): HookResponse {
     })
 
     const fetchMoreUsers = useCallback(() => {
-        fetchMore({
+        return fetchMore({
             variables: {
                 filter: {
                     name: {
@@ -46,7 +46,7 @@ function useListUsers({ page, limit }: HookParams): HookResponse {
     const refetchUsers = useCallback(
         (search: string) => {
             setCurrentSearch(search)
-            refetch({
+            return refetch({
                 filter: {
                     name: {
                         contains: search,
@@ -63,11 +63,7 @@ function useListUsers({ page, limit }: HookParams): HookResponse {
         return loading && networkStatus !== NetworkStatus.fetchMore
     }
 
-    function isFetchingMore() {
-        return loading && networkStatus === NetworkStatus.fetchMore
-    }
-
-    return { data, fetchMoreUsers, refetchUsers, isFetching, isFetchingMore }
+    return { data, fetchMoreUsers, refetchUsers, isFetching, error }
 }
 
 export default useListUsers

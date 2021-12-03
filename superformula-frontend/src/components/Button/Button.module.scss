@@ -4,6 +4,7 @@
     font-size: var(--typography-button);
     border-radius: 0.5rem;
     border: 0.25rem solid var(--border-color);
+    transition: 0.5s;
 
     &:hover,
     &:focus {

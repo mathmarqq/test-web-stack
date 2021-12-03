@@ -1,7 +1,8 @@
 @import 'styles//mixins.scss';
 
 .cardsWrapper,
-.loadingWrapper {
+.loadingWrapper,
+.notFound {
     flex: 1;
     padding: 1rem 0;
 }
@@ -25,6 +26,9 @@
 }
 
 .notFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     font-size: var(--typography-h4);
-    text-align: center;
 }

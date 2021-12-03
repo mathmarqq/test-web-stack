@@ -1,4 +1,12 @@
-import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useMemo, useState } from 'react'
+import React, {
+    ChangeEvent,
+    FormEvent,
+    ReactElement,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import Modal from 'components/Modal/Modal'
 import TextField from 'components/TextField/TextField'
@@ -8,6 +16,7 @@ import { getLocation, GetLocationResponse, GetLocationQueryVariables } from 'inf
 import { _debounce } from 'utils/utils'
 import { User } from 'domains/users/models/User'
 import ModalMap from 'domains/users/components/ModalMap/ModalMap'
+import SnackbarContext from 'contexts/SnackbarContext'
 import styles from './EditModal.module.scss'
 
 type FormData = {
@@ -23,6 +32,9 @@ type EditModalProps = {
 }
 
 function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
+    const { showSnackbar } = useContext(SnackbarContext)
+    const [updateError, setUpdateError] = useState<null | unknown>(null)
+
     const [formData, setFormData] = useState<FormData>({
         name: user.name,
         address: user.address,
@@ -35,6 +47,7 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
         data: locationData,
         loading,
         refetch,
+        error,
     } = useQuery<GetLocationResponse, GetLocationQueryVariables>(getLocation, {
         variables: {
             address: user.address,
@@ -45,16 +58,33 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
 
     useEffect(() => {
         if (data) {
+            showSnackbar('User updated', 'success')
             onSave()
         }
-    }, [data, onSave])
+    }, [data, onSave, showSnackbar])
 
-    function updateUser(e: FormEvent<HTMLFormElement>) {
+    useEffect(() => {
+        if (error) {
+            showSnackbar('Failed to fetch location', 'error')
+        }
+    }, [error, showSnackbar])
+
+    useEffect(() => {
+        if (updateError) {
+            showSnackbar('Failed to update user', 'error')
+        }
+    }, [updateError, showSnackbar])
+
+    async function updateUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        updateUserAsync({
-            variables: { input: { id: user.id, ...formData } },
-        })
+        try {
+            await updateUserAsync({
+                variables: { input: { id: user.id, ...formData } },
+            })
+        } catch (err: unknown) {
+            setUpdateError(err)
+        }
     }
 
     function changeInput(key: string, e: ChangeEvent<HTMLInputElement>) {
@@ -89,18 +119,21 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
                         inputId="nameInput"
                         value={formData.name}
                         onChange={(event) => changeInput('name', event)}
+                        required
                     />
                     <TextField
                         label="Location"
                         inputId="locationInput"
                         value={formData.address}
                         onChange={(event) => changeAdress(event)}
+                        required
                     />
                     <TextField
                         label="Description"
                         inputId="descriptionInput"
                         value={formData.description}
                         onChange={(event) => changeInput('description', event)}
+                        required
                     />
                 </form>
             </div>
