@@ -4,11 +4,10 @@ import Modal from 'components/Modal/Modal'
 import TextField from 'components/TextField/TextField'
 import Button from 'components/Button/Button'
 import { updateUser as updateUserMutation } from 'infra/graphql/mutations'
-import Map from 'components/Map/Map'
 import { getLocation, GetLocationResponse, GetLocationQueryVariables } from 'infra/graphql/queries'
-import Loader from 'components/Loader/Loader'
 import { _debounce } from 'utils/utils'
 import { User } from 'domains/users/models/User'
+import ModalMap from 'domains/users/components/ModalMap/ModalMap'
 import styles from './EditModal.module.scss'
 
 type FormData = {
@@ -73,41 +72,17 @@ function EditModal({ user, onSave, onClose }: EditModalProps): ReactElement {
         })
     }
 
-    function renderMapContainer() {
-        let content
-
-        if (loading) {
-            content = (
-                <div className={styles.loadWrapper}>
-                    <Loader />
-                </div>
-            )
-        } else if (locationData?.getLocation.latitude && locationData?.getLocation.longitude) {
-            content = (
-                <Map
-                    className={styles.map}
-                    center={{
-                        lat: locationData.getLocation.latitude,
-                        lng: locationData.getLocation.longitude,
-                    }}
-                />
-            )
-        } else {
-            content = (
-                <div className={styles.wrongAdressWrapper}>
-                    <span>We do not find your address :(</span>
-                </div>
-            )
-        }
-
-        return content
-    }
-
     return (
         <Modal className={styles.modal} backgroundClassName={styles.background} onClose={onClose}>
             <h3 className={styles.title}>Edit user</h3>
             <div className={styles.form}>
-                {renderMapContainer()}
+                <ModalMap
+                    loading={loading}
+                    center={{
+                        latitude: locationData?.getLocation.latitude || 0,
+                        longitude: locationData?.getLocation.longitude || 0,
+                    }}
+                />
                 <form id="edit-user-form" className={styles.inputs} onSubmit={updateUser}>
                     <TextField
                         label="Name"

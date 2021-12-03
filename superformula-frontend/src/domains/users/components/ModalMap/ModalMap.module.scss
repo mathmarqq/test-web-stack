@@ -1,0 +1,38 @@
+@import 'styles/mixins.scss';
+
+.loadWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrongAdressWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-size: 2rem;
+    }
+}
+
+.map {
+    display: none;
+
+    @include respond-to('laptop') {
+        display: block;
+        flex: 1;
+        width: 17rem;
+        height: 17rem;
+    }
+}
+
+.loadWrapper,
+.wrongAdressWrapper {
+    display: none;
+
+    @include respond-to('laptop') {
+        display: flex;
+        flex: 1;
+    }
+}

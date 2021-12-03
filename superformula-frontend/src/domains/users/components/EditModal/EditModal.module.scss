@@ -32,35 +32,6 @@
         padding: 1rem 0;
         column-gap: 2rem;
 
-        .loadWrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wrongAdressWrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            span {
-                font-size: 2rem;
-            }
-        }
-
-        .map,
-        .loadWrapper,
-        .wrongAdressWrapper {
-            display: none;
-
-            @include respond-to('laptop') {
-                display: block;
-                width: 20rem;
-                height: 20rem;
-                flex: 1;
-            }
-        }
-
         .inputs {
             flex: 1;
             display: flex;
