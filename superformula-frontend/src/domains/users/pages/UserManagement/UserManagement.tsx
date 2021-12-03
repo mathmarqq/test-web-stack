@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import Input from 'components/Input/Input'
 import Button from 'components/Button/Button'
 import useQueryParams, { QueryParam } from 'hooks/useQueryParams'
@@ -15,6 +15,8 @@ function UserManagement(): ReactElement {
     const { changeQueryParams, getQueryParams } = useQueryParams()
     const queryPage = getIntegerQueryParam(getQueryParams(), 'page')
 
+    const loadMoreRef = useRef<null | HTMLDivElement>(null)
+
     const [search, setSearch] = useState('')
 
     const { data, fetchMoreUsers, refetchUsers, isFetching, isFetchingMore } = useListUsers({
@@ -23,6 +25,12 @@ function UserManagement(): ReactElement {
     })
 
     const debouncedRefetchUsers = useMemo(() => _debounce(refetchUsers, 1000), [refetchUsers])
+
+    useEffect(() => {
+        if (loadMoreRef.current) {
+            loadMoreRef.current.scrollIntoView({ behavior: 'smooth' })
+        }
+    }, [])
 
     function fetchSearchedUsers(event: React.ChangeEvent<HTMLInputElement>) {
         setSearch(event.target.value)
@@ -54,7 +62,7 @@ function UserManagement(): ReactElement {
                     loading={isFetching()}
                     onEdit={() => refetchUsers(search)}
                 />
-                <div className={styles.loadMoreWrapper}>
+                <div ref={loadMoreRef} className={styles.loadMoreWrapper}>
                     {isFetchingMore() ? (
                         <Loader />
                     ) : (
